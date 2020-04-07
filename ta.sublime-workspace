@@ -4,6 +4,130 @@
 		"selected_items":
 		[
 			[
+				"no",
+				"noPause"
+			],
+			[
+				"draw",
+				"drawStyle"
+			],
+			[
+				"auto",
+				"autoHeight"
+			],
+			[
+				"fra",
+				"frameColor"
+			],
+			[
+				"fram",
+				"frameShadowColor"
+			],
+			[
+				"data",
+				"data"
+			],
+			[
+				"he",
+				"height"
+			],
+			[
+				"attr",
+				"attributesAddr"
+			],
+			[
+				"cal",
+				"calculate"
+			],
+			[
+				"area",
+				"areaColor"
+			],
+			[
+				"colo",
+				"colorSymbol"
+			],
+			[
+				"scree",
+				"screenAttributes"
+			],
+			[
+				"dot",
+				"dotScreen"
+			],
+			[
+				"test",
+				"testScreen"
+			],
+			[
+				"lin",
+				"lineDraw"
+			],
+			[
+				"tex",
+				"text"
+			],
+			[
+				"star",
+				"standard"
+			],
+			[
+				"dat",
+				"data"
+			],
+			[
+				"scr",
+				"scrAddr"
+			],
+			[
+				"fon",
+				"fontAddr"
+			],
+			[
+				"hei",
+				"heightLimit"
+			],
+			[
+				"chec",
+				"checkHeightLimit"
+			],
+			[
+				"rnd",
+				"rnd"
+			],
+			[
+				"rn",
+				"rndLimit"
+			],
+			[
+				"fo",
+				"fontAddr"
+			],
+			[
+				"dra",
+				"draw.nextLine"
+			],
+			[
+				"top",
+				"topSprite"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"sc",
+				"scrAddrDE"
+			],
+			[
+				"nex",
+				"nextLine"
+			],
+			[
+				"te",
+				"textAddr"
+			],
+			[
 				"so",
 				"sonreq"
 			],
@@ -19,6 +143,77 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "main.asm",
+			"settings":
+			{
+				"buffer_size": 2163,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/text.asm",
+			"settings":
+			{
+				"buffer_size": 1606,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/draw.asm",
+			"settings":
+			{
+				"buffer_size": 880,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/memory.asm",
+			"settings":
+			{
+				"buffer_size": 93,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/calculate.asm",
+			"settings":
+			{
+				"buffer_size": 1202,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/struct.asm",
+			"settings":
+			{
+				"buffer_size": 978,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/frame.asm",
+			"settings":
+			{
+				"buffer_size": 3045,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/ZX/Sublime/Data/Packages/z80asm/README.md",
+			"settings":
+			{
+				"buffer_size": 5691,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/z80asm/z80asm.sublime-build",
 	"build_system_choices":
@@ -44,7 +239,7 @@
 			]
 		]
 	],
-	"build_varint": "",
+	"build_varint": "Build and Run",
 	"command_palette":
 	{
 		"height": 0.0,
@@ -72,10 +267,25 @@
 	},
 	"expanded_folders":
 	[
-		"/C/ZX/Projects/libs/TextArea"
+		"/C/ZX/Projects/libs/TextArea",
+		"/C/ZX/Projects/libs/TextArea/TALib"
 	],
 	"file_history":
 	[
+		"/C/ZX/Projects/libs/TextArea/TALib/calculate.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/frame.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/FrameSprite/bottomSprite.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/FrameSprite/rightSprite.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/FrameSprite/bottomRightSprite.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/FrameSprite/topRightSprite.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/struct.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/memory.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/text.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/FrameSprite/bottomLeftSprite.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/FrameSprite/topLeftSprite.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/FrameSprite/topSprite.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/FrameSprite/leftSprite.asm",
+		"/C/ZX/Projects/libs/TextArea/TALib/leftSprite.asm",
 		"/C/ZX/Projects/YangaV3.0/sound/sound.a80",
 		"/C/ZX/Projects/YangaV3.0/sound/sound.asm",
 		"/C/ZX/Projects/YangaV3.0/logic.asm",
@@ -88,7 +298,7 @@
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -102,6 +312,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			")\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -119,18 +330,252 @@
 	"groups":
 	[
 		{
+			"selected": 5,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "main.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2163,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								467,
+								467
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 72.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "TALib/text.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1606,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								917,
+								917
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 486.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "TALib/draw.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 880,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								147,
+								151
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "TALib/memory.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 93,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								79,
+								79
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "TALib/calculate.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1202,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1168,
+								1168
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"tab_size": 8,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 671.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "TALib/struct.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 978,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								538,
+								538
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "TALib/frame.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3045,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								238,
+								238
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 7,
+					"file": "/C/ZX/Sublime/Data/Packages/z80asm/README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5691,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3801,
+								3801
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2232.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 27.0
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 40.0
 	},
 	"layout":
 	{
@@ -141,11 +586,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.744693396226,
 			1.0
 		],
 		"rows":
@@ -171,7 +623,7 @@
 	"project": "ta.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":
