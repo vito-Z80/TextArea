@@ -2,19 +2,34 @@
 execute
 	ld a,r
 	ld (calculate.rnd),a
-	//	calculate 
 	//	save screen place
-	call dotScreen
-	ld a,2
-	call screenAttributes
+	call setWrap
+	
+; 	call dotScreen
+; 	ld a,2
+; 	call screenAttributes
+
+
 	call frame.draw
 	call text.draw
-	//	draw text
+
 
 	ret
 
 //----------------------------------------------------------
-calculate
+setWrap
+	ld a,(ix+data.wrap)
+	or a
+	jp z,calculate.standard			//	standard
+	cp 1
+	jp z,calculate.hyphenation		//	hyphenation
+	ret
+//----------------------------------------------------------
+test
+	ld a,(23556)
+	call calculate.letterAddr
+	ld de,16384
+	call symbol
 	ret
 //----------------------------------------------------------
 

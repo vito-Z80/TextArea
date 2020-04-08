@@ -3,80 +3,131 @@ init
 	ret
 //---------------------------------------------------------
 draw 
+	ld a,(ix+data.drawStyle)
+	ld (pause),a
 	ld a,(ix+data.areaColor)
 	call areaColor
-	ld a,(ix+data.drawStyle)
-	cp 2
-	jr c,standard
+	call drawHyphenation
+	ret
+	
 	ret
 //---------------------------------------------------------
+pause 		db 0
 nextLine 	db 0
-scrAddr		dw 0
-standard
-	xor a
-	ld (nextLine),a
-	//	save screen address for draw
-	ld l,(ix+data.x)
-	ld h,(ix+data.y)
-	inc l
-	inc h
-	call calculate.scrAddrDE
-	ex de,hl
-	ld (scrAddr),hl
+//------------------
+draw8Letter
+	ret
+//------------------
+nextLineY	db 0  	// Y текущей строки
+staticX		db 0	// X текстового поля
+endLineDraw	db 0
+drawHyphenation
+	ld a,(ix+data.x)
+	inc a
+	ld (staticX),a
+	ld a,(ix+data.y)
+	inc a
+	ld (nextLineY),a
+
 	//	set font address
 	ld a,(ix+data.fontAddr)
 	ld (calculate.fontAddr+1),a
 	ld a,(ix+data.fontAddr+1)
 	ld (calculate.fontAddr+2),a
-	//	get text address HL
-	ld l,(ix+data.textAddr)
-	ld h,(ix+data.textAddr+1)
-	//	get start screen address DE
 
-lineDraw
-	ld a,(scrAddr)
-	ld e,a
-	ld a,(scrAddr+1)
-	ld d,a
+	//	text line addresses
+	ld hl,calculate.lines
 
-	ld a,(ix+data.width)
-letterDraw
-	ex af,af
+	
+
+nextLineDraw
+	push hl
+	ld e,(hl)
+	inc hl
 	ld a,(hl)
 	or a
-	ret z
-	push de
-	push hl
-	call calculate.letterAddr
-	call draw.symbol
-	ld a,(ix+data.drawStyle)
-	cp 1
-	jr nz,noPause
-	halt
-noPause
+	jr nz,continueDraw
 	pop hl
+	ret
+continueDraw
+	ld d,a
 	inc hl
-	pop de
-	inc e
-	ex af,af
-	dec a
-	jr nz,letterDraw
-
+	ld c,(hl)
+	inc hl
+	ld b,(hl)
+	//	BC = получили адрес текста для следующей строки
+	ex de,hl
+	//	HL = получили адрес текста для ткущей строки
 	push hl
-	ld l,(ix+data.x)
-	inc l
-	ld a,(nextLine)
-	inc a
-	ld (nextLine),a
-	inc a
-	add (ix+data.y)
+	push hl
+	push bc
+	pop hl
+	pop bc
+	or a
+	sbc hl,bc
+	ld b,l
+	//	B = получили длинну строки
+
+	ld a,(staticX)
+	ld l,a
+	ld a,(nextLineY)
 	ld h,a
 	call calculate.scrAddrDE
-	ex de,hl
-	ld (scrAddr),hl
+	//	DE = получили адрес экрана для печати
 	pop hl
-	jr lineDraw
-//------------------
+; 	ld b,(ix+data.width)
+nextLetterDraw
+	push bc
+	push hl
+	ld a,(hl)
+	or a
+	jr nz,nld
+	pop af
+	pop af
+	pop af
+	ret
+
+
+
+nld
+	call calculate.letterAddr
+	push de
+	call draw.symbol
+	ld a,(pause)
+	cp 1
+	jr nz,noPause
+	call keyboard.anyKey
+	jr z,noPause-1
+	xor a
+	ld (pause),a
+	halt
+noPause
+	pop de
+	inc e
+	pop hl
+	inc hl
+	pop bc
+	djnz nextLetterDraw
+	ld a,(nextLineY)
+	inc a
+	ld (nextLineY),a
+	pop hl
+	inc hl
+	inc hl
+	jr nextLineDraw
+//---------------------------------------------------------
+/*
+	расчет перевода строки по словам:
+
+	известно: ширина текста
+
+		считаем длинну слова, отнимаем от ширины текста
+		отнимаем пробел
+			если пробел с начала строки = не печатаем его (TODO для абзаца введем символ)
+		если ширина текста > 0 продолжаем считать else переходим на новую строку и берем последнее проверенно слово
+
+
+*/
 //---------------------------------------------------------
 areaColor
 	//	A = color

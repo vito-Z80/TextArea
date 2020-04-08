@@ -21,7 +21,6 @@ checkHeightLimit
 	ld a,(ix+data.autoHeight)
 	or a
 	jr z,startDraw
-
 	//	TODO add height calculate
 
 startDraw
