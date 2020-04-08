@@ -1,3 +1,4 @@
 # TextArea
- NOT USE !!!
+ do not use !
+ 
  Zx-Spectrum library (Text area)
