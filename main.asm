@@ -26,7 +26,7 @@ startCode
 	ld (ix+data.drawStyle),a	//	draw style value
 ; 	ld (ix+data.x),5		//	frame X
 ; 	ld (ix+data.y),13		//	frame Y
-	ld (ix+data.width),0		//	text area width
+	ld (ix+data.width),19		//	text area width
 	ld (ix+data.height),0		//	text area height
 	ld hl,0				//	#3c00 standard font
 	ld (ix+data.fontAddr),l		//	font address low
@@ -36,14 +36,10 @@ startCode
 	ld (ix+data.textAddr+1),h	//	text message address  high
 
 repeat
-	call draw.test
-        call keyboard.anyKey
-        jr z,repeat
-        call draw.test
+;         call keyboard.anyKey
+;         jr z,repeat
         ei 
-        dup 1
         halt
-        edup
         call draw.execute
         jr repeat
 //-----------------------------------

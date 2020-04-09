@@ -16,6 +16,8 @@ execute
 	call frame.draw
 	call text.draw
 
+	call keyboard.anyKey
+        jr z,$-3
 
 	ret
 

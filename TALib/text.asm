@@ -95,9 +95,10 @@ nld
 	cp 1
 	jr nz,noPause
 	call keyboard.anyKey
-	jr z,noPause-1
+	jr z,noPause-2
 	xor a
 	ld (pause),a
+	ei
 	halt
 noPause
 	pop de
