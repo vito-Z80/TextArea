@@ -3,8 +3,11 @@ execute
 	ld a,r
 	ld (calculate.rnd),a
 	//	save screen place
+	call calculate.increaseWidth
 	call setWrap
-	
+	call calculate.increaseHeight
+	call calculate.standardFont
+	call calculate.blackWhiteColor
 ; 	call dotScreen
 ; 	ld a,2
 ; 	call screenAttributes

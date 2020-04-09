@@ -9,8 +9,6 @@ draw
 	call areaColor
 	call drawHyphenation
 	ret
-	
-	ret
 //---------------------------------------------------------
 pause 		db 0
 nextLine 	db 0

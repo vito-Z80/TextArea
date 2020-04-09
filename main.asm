@@ -13,8 +13,9 @@ startCode
 
 //	init 
 	ld ix,memory.dataAddr 		//	all values address
+
 	ld a,1
-	ld (ix+data.wrap),a
+	ld (ix+data.wrap),a		//	set wrap
 	ld a,%00001111
 	ld (ix+data.areaColor),a	//	text area color	
 	ld a,6
@@ -25,17 +26,15 @@ startCode
 	ld (ix+data.drawStyle),a	//	draw style value
 ; 	ld (ix+data.x),5		//	frame X
 ; 	ld (ix+data.y),13		//	frame Y
-	ld (ix+data.width),15		//	text area width
-	ld (ix+data.height),11		//	text area height
-	ld hl,15616-256 
+	ld (ix+data.width),0		//	text area width
+	ld (ix+data.height),0		//	text area height
+	ld hl,0				//	#3c00 standard font
 	ld (ix+data.fontAddr),l		//	font address low
 	ld (ix+data.fontAddr+1),h	//	font address high
 	ld hl,message	
 	ld (ix+data.textAddr),l		//	text message address low
 	ld (ix+data.textAddr+1),h	//	text message address  high
 
-; 	call calculate.hyphenation
-; 	jr $
 repeat
 	call draw.test
         call keyboard.anyKey
@@ -50,10 +49,6 @@ repeat
 //-----------------------------------
 //-----------------------------------
 
-        //	text must be ending at '0'
-message	dm "Hello world, this is a text area library."
-	dm " Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-	dm "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",0
 
         include "TALib/draw.asm"
         include "TALib/calculate.asm"
@@ -68,6 +63,12 @@ endCode equ $
         include "TALib/Sprites/topRightSprite.asm"
         include "TALib/Sprites/rightSprite.asm"
         include "TALib/memory.asm"
+        
+message	
+	dm "The new Sinclair has arrived at last - a book-sized micro-computer with colour and sound and "
+	dm "an extended version of ZX Basic. It came through its test well ahead of the competition but,"
+	dm " as Tim Hartnell found, even Sinclair Research cannot work miracles."
+	db 0	//	text must be ending at '0'
 endProg equ $
 testScreen
         incbin "TALib/Sprites/Jarlaxe.scr"
