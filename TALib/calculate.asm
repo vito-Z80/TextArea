@@ -1,5 +1,171 @@
-	module calculate
-scrAddrDE
+        module calculate
+;       всё кроме букв может быть разорвано строкой, включая цифры
+;       one record is 4 bytes (text line address, offsetX, length)
+lines:          block 22*4      
+;       start last text line address 
+lastLineAddr:   dw 0           
+;       start last word address
+lastWordAddr:   dw 0         
+; start attribute address for text area
+attributeAddr:  dw #0000 
+currentColor:   db 0
+previousColor:  db 0
+mainProcess:
+        call createMissing
+        call getAttrAddr
+        ld (attributeAddr),hl
+        call textFormatting
+        call controlTuning
+        ret
+controlTuning
+        //      position VS size
+
+        ret
+//      format text 
+textFormatting:
+        ld l,(ix+data.textAddr)
+        ld h,(ix+data.textAddr+1)
+        ld (lastLineAddr),hl
+        ld a,(ix+data.width)    ;      ширина ранее заданной текстовой области
+        ld c,a
+        inc c
+        ld e,0
+        push ix
+        ld ix,lines   //      коллекция адресов линий текста
+        xor a                   //      line count
+        ex af,af
+newLine:
+        //      сохраним начало строки (оно может быть изменено далее)
+        ld (ix),l
+        ld (ix+1),h
+        //      смещение и длина строки пока не известны
+        ld (ix+2),0     
+        ld (ix+3),0
+        ld b,c
+nextChar:
+        ld a,(hl)       //      получили текущий символ
+        cp 32
+        jr c,userSymbols//      пользовательские символы (1-31)
+        sub 32
+        cp 33
+        jr c,break      //      символ не является буквой и может быть перенесен на другую строку      
+        sub 91-32
+        cp 6
+        jr c,break      //      символ не является буквой и может быть перенесен на другую строку
+        sub 123-91
+        cp 5 
+        jr c,break      //      символ не является буквой и может быть перенесен на другую строку
+//      word
+        inc hl
+        inc e
+        dec b
+        jr nz,nextChar
+        ld hl,(lastWordAddr)
+        ld (lastLineAddr),hl
+        ld a,c
+        sub e
+        sub (ix+2)
+        ld (ix+3),a     //      line length  
+        ld e,0
+        ex af,af
+        inc a           //      add lines counter
+        ex af,af
+        jr b2
+//------
+userSymbols:
+        or a
+        jr z,endProc
+        cp TEXT.INDENT
+        jr z,newLineWithOffsetX
+        cp TEXT.COLOR
+        jr z,setColor
+        cp TEXT.RETURN_COLOR
+        jr z,returnColor
+
+        ; if unregistered symbol
+        jr endProc
+//------
+break:
+        ld e,0
+        inc hl
+        ld (lastWordAddr),hl
+        dec b
+        jr nz,nextChar
+        ex af,af
+        inc a           //      add lines counter
+        ex af,af
+        dec hl
+        ld a,c
+        dec a
+        ld (ix+3),a     //      line length  
+b2:
+        inc ix   
+        inc ix   
+        inc ix   
+        inc ix   
+        jr newLine
+//------
+newLineWithOffsetX:
+        ex af,af
+        inc a           //      add lines counter
+        ex af,af
+        inc hl
+        ld a,c
+        sub b
+        ld (ix+3),a
+        inc ix
+        inc ix
+        inc ix
+        inc ix
+        ld a,(hl)
+        ld (ix+2),a     //      set offsetX
+        inc hl
+        ld (ix),l
+        ld (ix+1),h
+        ld (lastWordAddr),hl
+        ld (lastLineAddr),hl
+
+        ld b,c
+        sub a
+;         dec a
+        ld (ix+3),a     //      length
+        ld e,0
+
+        jp nextChar
+//------
+endProc:
+        ld a,c
+        sub b
+        jr z,ep1
+        ld (ix+3),a     //      line length  
+        ld (ix+5),0     //      end text lines collection
+        jr ep2
+ep1:
+        ld (ix+1),0
+ep2:
+        ex af,af
+        inc a           ;      line counter result
+        pop ix
+        ld c,(ix+data.height)
+        ret c
+        ld (ix+data.height),a
+        ret
+//-------------------
+setColor
+        ld a,(currentColor)
+        ld (previousColor),a
+        inc hl
+        ld a,(hl)
+sc
+        ld (currentColor),a
+        inc hl
+        jp nextChar
+; set previous color
+returnColor
+        ld a,(previousColor)
+        jr sc
+; get screen address in DE
+scrAddrDE:
 	//	l = x; h = y
 	ld a,#40
 	add h
@@ -15,7 +181,7 @@ scrAddrDE
         //      DE = screen address
 	ret
 //-------------------
-nextLine
+nextLine:
         ; next screen line address
         inc d
         ld  a,d
@@ -30,8 +196,8 @@ nextLine
         ld  d,a
         ret
 //-------------------
-rnd	dw 23821
-rndLimit
+rnd:	dw 23821
+rndLimit:
 	//	A = limit
 	ld c,a
 	ld hl,(rnd)
@@ -48,20 +214,20 @@ rndLimit
 	//	return A 
 	ret
 //-------------------
-letterAddr
+letterAddr:
         ; calc address of char in font
         ld l,a
         ld h,0 
         add hl,hl
         add hl,hl
         add hl,hl
-fontAddr
+fontAddr:
         ld bc,0
         add hl,bc       
         ; hl=address in font
         ret
 //-------------------
-attributesAddr
+getAttrAddr:
         ld l,(ix+data.y)
         ld h,0
         add hl,hl
@@ -72,181 +238,36 @@ attributesAddr
         ld b,#58
         ld c,(ix+data.x)
         add hl,bc
-        //      HL = attributes address from symbol coordinates
+        ;      HL = attributes address from symbol coordinates
         ret
 //-------------------
-increaseWidth
-        //      установить ширину текстовой области в 16 если не было задано (data.height==0)
+createMissing:
+        ;       установить ширину текстовой области в 30 символов если не было задано
+        ;       так-же установить координаты  X=0;Y=0;
         ld a,(ix+data.width)
         or a
-        ret nz
-        ld (ix+data.width),16
-        ret
-//-------------------
-        //      FIX      объеденить создание упущенного без increaseWidth которую нужно задать самой первой
-increaseHeight
-        //      увеличим высоту текстовой области если изначально было задано меньше или не было задано вовсе
-        ld a,0
-        cp (ix+data.height)
-        ret c
-        ld (ix+data.height),a
-        ret
-//-------------------
-standardFont
-        //      установить стандартный шрифт если не был установленных
+        jr nz,standardFont
+        ld (ix+data.x),a
+        ld (ix+data.y),a
+        ld (ix+data.width),30
+standardFont:
+        ;      установить стандартный шрифт если не был установленных
         ld a,(ix+data.fontAddr+1)
         cp #3c
-        ret nc
+        jr nc,blackWhiteColor
         ld (ix+data.fontAddr+1),#3c
         ld (ix+data.fontAddr),0
-        ret
-//-------------------
-blackWhiteColor
-        //      установить черный фон + белые буквы, если не задано + для рамки то-же самое
+blackWhiteColor:
+        ;      установить черный фон + белые буквы, если не задано + для рамки то-же самое
         ld c,7
         ld a,(ix+data.frameColor)
         or a
         jr nz,bwTextArea
         ld  (ix+data.frameColor),c
-bwTextArea
+bwTextArea:
         ld a,(ix+data.areaColor)
         or a
         ret nz
         ld  (ix+data.areaColor),c
         ret
-//-------------------
-/*
-        всё кроме букв может быть разорвано строкой, включая цифры
-*/
-lines   block 22*2 // адреса текста каждой вычисленной строки (максимум 22 строки для печати, конец == #00 high)
-lastLineAddr    dw 0    //      адрес неразрываной строки слов
-lastWordAddr    dw 0    //      адресс последнего проверяемого слова или знака препинания
-textAreaWidth   db 0    //      ширина текста из раннее установленных данных
-hyphenation
-        ld l,(ix+data.textAddr)
-        ld h,(ix+data.textAddr+1)
-
-        ld c,(ix+data.width)    //      ширина текстовой площади
-        push ix
-        ld ix,lines     //      коллекция адресов линий текста
-        xor a                  //      счетчик строк
-        ex af,af
-newLineProcess
-        ex af,af
-        ld (ix),l               // сохранить начало текста новой строки
-        ld (ix+1),h
-        inc ix
-        inc ix
-        inc a                   // увеличить счетчик строк
-        ex af,af
-        ld b,c                  // ширина строки     
-        ld (lastLineAddr),hl    // сохраняем адрес текста от начала текущей строки
-checkNextChar
-        ld de,saveLastWord      // из defineChar вернется по адресу DE если символ == БуКвА, != перейдет на процедуру split
-        jr defineChar
-saveLastWord
-        ld (lastWordAddr),hl
-wordProcess                     // цикл определяющий слово или конец строки
-        inc hl
-        dec b
-        //------------------------
-        jr z,endLine            // конец строки
-        ld de,wordProcess       // из defineChar вернется по адресу DE если символ == БуКвА, != перейдет на процедуру split
-        jr defineChar
-endLine
-        ld a,(hl)
-        sub 32
-        cp 33
-        jr c,newLineProcess           
-        sub 91-32
-        cp 6
-        jr c,newLineProcess
-        sub 123-91
-        cp 5 
-        jr c,newLineProcess
-        ld hl,(lastWordAddr)
-        jr newLineProcess
-        //------------------------
-;         jr nz,w2                // не конец строки (ширины)
-;         ld hl,(lastWordAddr)
-;         jr newLineProcess
-; w2
-;         ld de,wordProcess       // из defineChar вернется по адресу DE если символ == БуКвА, != перейдет на процедуру split
-;         jr defineChar
-
-
-endText
-        ld e,0
-        ld (ix+1),e     //      обозначить конец строк в коллекции как '0'
-        ld a,b
-        cp c
-        jr nz,et2
-        //      если последний символ текста был последним символом строки то уменьшить кол-во строк
-        inc e
-et2
-        ex af,af
-        sub e
-        ld (increaseHeight+1),a   //      сохранить высоту (кол-во получившихся строк)
-        pop ix
-        ret
-split
-        //      диапазон байт(символов) которые могут быть разорваны строкой. Цифры включены в диапазон.
-        ld (lastWordAddr),hl
-        inc hl
-        dec b
-        jr nz,checkNextChar
-        jr newLineProcess
-userSymbol
-        //      пользовательские символы такие как: цвет и т.д.
-        or a
-        jr z,endText
-        inc hl
-        ret
-//-------------------
-defineChar
-        //      определяем: БуКвА или нечто другое
-        ld a,(hl)
-        or a
-        jr z,endText    //      конец текста
-        sub 32
-;         or a
-;         jr c,userSymbol       //      пользовательские символы (1-31)
-        cp 33
-        jr c,split           
-        sub 91-32
-        cp 6
-        jr c,split
-        sub 123-91
-        cp 5 
-        jr c,split
-        push de
-        ret             //      вкрнуться по адресу DE
-//-------------------
-standard
-        ld e,(ix+data.textAddr)
-        ld d,(ix+data.textAddr+1)
-        ld hl,lines
-        ld c,1
-s2
-        ld (hl),e
-        inc hl
-        ld (hl),d
-        inc hl 
-        ld b,(ix+data.width)
-s1
-        inc de
-        ld a,(de)
-        or a
-        jr z,ending
-        djnz s1
-        inc c
-        jr s2
-ending
-        inc hl
-        ld (hl),0
-        ld a,c
-        ld (increaseHeight+1),a
-        ret
-//-------------------
-        display "hyphenation: ", /A, hyphenation
 	endmodule

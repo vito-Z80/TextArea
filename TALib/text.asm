@@ -1,144 +1,105 @@
 	module text
-init
-	ret
-//---------------------------------------------------------
+coordinates 	dw #0000
+drawStyle	db 0
+;	draw text 
 draw 
-	ld a,(ix+data.drawStyle)
-	ld (pause),a
-	ld a,(ix+data.areaColor)
-	call areaColor
-	call drawHyphenation
-	ret
-//---------------------------------------------------------
-pause 		db 0
-nextLine 	db 0
-//------------------
-draw8Letter
-	ret
-//------------------
-nextLineY	db 0  	// Y текущей строки
-staticX		db 0	// X текстового поля
-endLineDraw	db 0
-drawHyphenation
-	ld a,(ix+data.x)
-	inc a
-	ld (staticX),a
-	ld a,(ix+data.y)
-	inc a
-	ld (nextLineY),a
-
-	//	set font address
-	ld a,(ix+data.fontAddr)
-	ld (calculate.fontAddr+1),a
-	ld a,(ix+data.fontAddr+1)
-	ld (calculate.fontAddr+2),a
-
-	//	text line addresses
-	ld hl,calculate.lines
-
 	
+	ld a,(ix+data.beep)
+	ld (setBeep+1),a
+	ld a,(ix+data.drawStyle)
+	ld (drawStyle),a
+	ld a,(ix+data.delay)
+; 	ld a,1
+	ld (delay+1),a
+	ld l,(ix+data.fontAddr)
+	ld h,(ix+data.fontAddr+1)
+	ld (calculate.fontAddr+1),hl
+	ld l,(ix+data.x)
+	ld h,(ix+data.y)
+	inc h
+	inc l
+	ld (coordinates),hl
 
-nextLineDraw
-	push hl
-	ld e,(hl)
-	inc hl
-	ld a,(hl)
-	or a
-	jr nz,continueDraw
-	pop hl
-	ret
-continueDraw
-	ld d,a
-	inc hl
-	ld c,(hl)
-	inc hl
-	ld b,(hl)
-	//	BC = получили адрес текста для следующей строки
-	ex de,hl
-	//	HL = получили адрес текста для ткущей строки
-	push hl
-	push hl
-	push bc
-	pop hl
-	pop bc
-	or a
-	sbc hl,bc
-	ld b,l
-	//	B = получили длинну строки
+	ld ix,calculate.lines
 
-	ld a,(staticX)
-	ld l,a
-	ld a,(nextLineY)
-	ld h,a
+printNextLine
 	call calculate.scrAddrDE
-	//	DE = получили адрес экрана для печати
-	pop hl
-; 	ld b,(ix+data.width)
-nextLetterDraw
-	push bc
-	push hl
-	ld a,(hl)
+	ld a,(ix+2)
+	add e
+	ld e,a
+	ld l,(ix)
+	ld a,(ix+1)
 	or a
-	jr nz,nld
-	pop af
-	pop af
-	pop af
-	ret
-
-
-
-nld
-	call calculate.letterAddr
+	ret z
+	ld h,a
+	ld a,(ix+3)
+nextChar
+	ex af,af
+	ld a,(hl)
+	cp 32
+	jr nc,canDraw
+	inc hl
+	jr nextChar+1
+canDraw:
+	push hl
 	push de
+	push af
+	call calculate.letterAddr
 	call draw.symbol
-	ld a,(pause)
-	cp 1
-	jr nz,noPause
-	call keyboard.anyKey
-	jr z,noPause-2
-	xor a
-	ld (pause),a
-	ei
-	halt
-noPause
+	pop af
+	call beep
+	call delay
 	pop de
 	inc e
 	pop hl
 	inc hl
-	pop bc
-	djnz nextLetterDraw
-	ld a,(nextLineY)
-	inc a
-	ld (nextLineY),a
-	pop hl
-	inc hl
-	inc hl
-	jr nextLineDraw
-//---------------------------------------------------------
-/*
-	расчет перевода строки по словам:
-
-	известно: ширина текста
-
-		считаем длинну слова, отнимаем от ширины текста
-		отнимаем пробел
-			если пробел с начала строки = не печатаем его (TODO для абзаца введем символ)
-		если ширина текста > 0 продолжаем считать else переходим на новую строку и берем последнее проверенно слово
-
-
-*/
-//---------------------------------------------------------
-areaColor
+	ex af,af
+	dec a
+	jr nz,nextChar
+	inc ix
+	inc ix
+	inc ix
+	inc ix
+	ld hl,(coordinates)
+	inc h
+	ld (coordinates),hl
+	jr printNextLine
+; play sound if specified
+delay:
+	ld b,0	;	(1-128) * halt; (129-255,0) = no halt
+	dec b
+	ret m
+	ei
+	halt
+	call keyboard.anyKey
+	jr z,delay+2
+	xor a
+	ld (delay+1),a
+	ld (setBeep+1),a
+	ret
+; play sound if specified
+beep:
+	cp " "		;	'SPACE' char = no beep
+	ret z
+setBeep:
+	ld a,0
+	or a		;	if beep not specify = no beep
+	ret z
+	call sound.setSound
+	call sound.soundPlay
+	ret
+; set area color
+areaColor:
 	//	A = color
-	call calculate.attributesAddr
+	call calculate.getAttrAddr
 	ld bc,33
 	add hl,bc
 	dec bc
 	ld d,(ix+data.height)
-colorLine
+colorLine:
 	push hl
 	ld e,(ix+data.width)
-colorSymbol
+colorSymbol:
 	ld (hl),a
 	inc l
 	dec e
@@ -148,9 +109,5 @@ colorSymbol
 	dec d
 	jr nz,colorLine
 	ret
-//---------------------------------------------------------
-calculateLineBreak
-
-
 
 	endmodule

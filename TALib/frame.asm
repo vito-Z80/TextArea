@@ -18,11 +18,6 @@ draw
 	call calculate.rndLimit
 	ld (ix+data.y),a
 checkHeightLimit
-	ld a,(ix+data.autoHeight)
-	or a
-	jr z,startDraw
-	//	TODO add height calculate
-
 startDraw
 	//	topLeftSprite
 	ld l,(ix+data.x)
@@ -147,7 +142,7 @@ horizontalPath
 fColorAddr	dw #0000
 frameColor
 	ld a,(ix+data.frameColor)
-	call calculate.attributesAddr
+	call calculate.getAttrAddr
 	//	hl attributes address
 	ld (fColorAddr),hl
 	ld e,l

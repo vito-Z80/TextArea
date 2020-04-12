@@ -3,32 +3,25 @@ execute
 	ld a,r
 	ld (calculate.rnd),a
 	//	save screen place
-	call calculate.increaseWidth
-	call setWrap
-	call calculate.increaseHeight
-	call calculate.standardFont
-	call calculate.blackWhiteColor
+	call calculate.mainProcess
 ; 	call dotScreen
 ; 	ld a,2
 ; 	call screenAttributes
 
 
 	call frame.draw
-	call text.draw
+	ld a,(ix+data.areaColor)
+	call text.areaColor
 
+
+	push ix
+	call text.draw
+	pop ix
 	call keyboard.anyKey
         jr z,$-3
 
 	ret
 
-//----------------------------------------------------------
-setWrap
-	ld a,(ix+data.wrap)
-	or a
-	jp z,calculate.standard			//	standard
-	cp 1
-	jp z,calculate.hyphenation		//	hyphenation
-	ret
 //----------------------------------------------------------
 test
 	ld a,(23556)
@@ -83,10 +76,21 @@ screenAttributes
 	ld (hl),a
 	ldir
 	ret
-
-
+	endmodule
+	//	code
+	include "TALib/keyboard.asm"
+	include "TALib/calculate.asm"
         include "TALib/frame.asm"
         include "TALib/text.asm"
-	
-	endmodule
-
+        include "TALib/sound.asm"
+        //	frame Sprites
+        include "TALib/Sprites/topLeftSprite.asm"
+        include "TALib/Sprites/leftSprite.asm"
+        include "TALib/Sprites/bottomLeftSprite.asm"
+        include "TALib/Sprites/bottomRightSprite.asm"
+        include "TALib/Sprites/bottomSprite.asm"
+        include "TALib/Sprites/topSprite.asm"
+        include "TALib/Sprites/topRightSprite.asm"
+        include "TALib/Sprites/rightSprite.asm"
+        //	data
+        include "TALib/memory.asm"

@@ -4,8 +4,144 @@
 		"selected_items":
 		[
 			[
+				"spli",
+				"splitWord"
+			],
+			[
+				"line",
+				"lineCounter"
+			],
+			[
+				"SET_SI",
+				"SET_AERA_SIZE"
+			],
+			[
+				"end",
+				"endString"
+			],
+			[
+				"li",
+				"lineCounter"
+			],
+			[
+				"lin",
+				"lineLength"
+			],
+			[
+				"of",
+				"offset"
+			],
+			[
+				"spl",
+				"splitWord"
+			],
+			[
+				"wo",
+				"lastWordAddr"
+			],
+			[
+				"repe",
+				"repeatProcess"
+			],
+			[
+				"afte",
+				"afterCheck"
+			],
+			[
 				"las",
+				"lastWordAddr"
+			],
+			[
+				"memor",
+				"memory.dataAddr"
+			],
+			[
+				"mem",
+				"memory.textLines"
+			],
+			[
+				"offset",
+				"offsetX"
+			],
+			[
+				"ind",
+				"indent2"
+			],
+			[
+				"TEX",
+				"TEXT.INDENT"
+			],
+			[
+				"SET_A",
+				"SET_AERA_SIZE"
+			],
+			[
+				"en",
+				"endm"
+			],
+			[
+				"st",
+				"style"
+			],
+			[
+				"add",
+				"address"
+			],
+			[
+				"IN",
+				"INK"
+			],
+			[
+				"SET",
+				"SET_FRAME_COLOR"
+			],
+			[
+				"col",
+				"color"
+			],
+			[
+				"attr",
+				"attributes"
+			],
+			[
+				"spr",
+				"spriteAddress"
+			],
+			[
+				"ed",
+				"endmodule"
+			],
+			[
+				"tex",
+				"textAddr"
+			],
+			[
+				"last",
 				"lastLineAddr"
+			],
+			[
+				"restore",
+				"restoreScreen"
+			],
+			[
+				"defi",
+				"defineChar"
+			],
+			[
+				"def",
+				"defineChar"
+			],
+			[
+				"fram",
+				"frameColor"
+			],
+			[
+				"sta",
+				"standard"
+			],
+			[
+				"data",
+				"data.height"
 			],
 			[
 				"chec",
@@ -68,24 +204,12 @@
 				"scrAddrDE"
 			],
 			[
-				"sta",
-				"staticX"
-			],
-			[
-				"line",
-				"lines"
-			],
-			[
 				"h",
 				"hyphenation"
 			],
 			[
 				"not",
 				"notSpace"
-			],
-			[
-				"lin",
-				"lines"
 			],
 			[
 				"scree",
@@ -102,10 +226,6 @@
 			[
 				"le",
 				"letterAddr"
-			],
-			[
-				"end",
-				"endmodule"
 			],
 			[
 				"any",
@@ -128,20 +248,8 @@
 				"frameColor"
 			],
 			[
-				"fram",
-				"frameShadowColor"
-			],
-			[
-				"data",
-				"data"
-			],
-			[
 				"he",
 				"height"
-			],
-			[
-				"attr",
-				"attributesAddr"
 			],
 			[
 				"area",
@@ -158,10 +266,6 @@
 			[
 				"test",
 				"testScreen"
-			],
-			[
-				"tex",
-				"text"
 			],
 			[
 				"dat",
@@ -219,46 +323,16 @@
 			"file": "main.asm",
 			"settings":
 			{
-				"buffer_size": 2285,
+				"buffer_size": 2578,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "\tmodule calculate\nscrAddrDE\n\t//\tl = x; h = y\n\tld a,#40\n\tadd h\n        and %11111000\n        ld d,a\n        ld a,h\n        and 7\n        rrca\n        rrca\n        rrca\n        add l\n        ld e,a\n        //      DE = screen address\n\tret\n//-------------------\nnextLine\n        ; next screen line address\n        inc d\n        ld  a,d\n        and 7\n        jr  nz,$+12\n        ld  a,e\n        add a,32\n        ld  e,a\n        jr  c,$+6\n        ld  a,d\n        sub 8\n        ld  d,a\n        ret\n//-------------------\nrnd\tdw 23821\nrndLimit\n\t//\tA = limit\n\tld c,a\n\tld hl,(rnd)\n\tld a,h\n\tsbc a,l\n\tld l,a\n\tadd hl,hl\n\tld (rnd),hl\n\tand 63\n1:\n\tsrl a\n\tcp c\n\tjr nc,1B\n\t//\treturn A = coordinate\n\tret\n//-------------------\nletterAddr\n        ; calc address of char in font\n        ld l,a,h,0      ; a=char\n        add hl,hl,hl,hl,hl,hl\nfontAddr\n        ld bc,0\n        add hl,bc       ; hl=address in font\n        ret\n//-------------------\nattributesAddr\n        ld l,(ix+data.y)\n        ld h,0\n        add hl,hl\n        add hl,hl\n        add hl,hl\n        add hl,hl\n        add hl,hl\n        ld b,#58\n        ld c,(ix+data.x)\n        add hl,bc\n        //      HL = attributes address from symbol coordinates\n        ret\n//-------------------\n/*\n        всё кроме букв может быть разорвано строкой, включая цифры\n*/\nlines   block 22*2 // адреса текста каждой вычисленной строки (максимум 22 строки для печати, конец == #00 high)\nlastLineAddr    dw 0    //      адрес неразрываной строки слов\nlastWordAddr    dw 0    //      адресс последнего проверяемого слова или знака препинания\ntextAreaWidth   db 0    //      ширина текста из раннее установленных данных\nhyphenation\n        ld l,(ix+data.textAddr)\n        ld h,(ix+data.textAddr+1)\n        ld (lastLineAddr),hl\n        //     сохранили адресс начала текста для дальнейшего использования\n        ld a,(ix+data.width)\n        ld (textAreaWidth),a\n        ld c,a\n        //      сохранили ширину текстовой площади для дальнейшего использования\n\n        push ix\n        ld ix,lines     //      коллекция адресов линий текста\n\naga\n        ld (ix),l\n        ld (ix+1),h\n        inc ix\n        inc ix\n        //      сохранили начало текста в первую ячейку коллекции адресов линий текста\n\n        //      HELLO \n\nnewLineProcess\n        ld a,(ix+data.width)\n        ld b,a                  // ширина строки     \n        ld (lastLineAddr),hl    // сохраняем адрес начала слова на случай если слово не войдет в строку\ncheckNextChar\n\n        \n\n\n        //      определяем БуКвА в HL или нечто другое\n        ld a,(hl)\n        or a\n        jr z,endText\n        sub 32\n;         or a\n;         jr z,userSymbol\n        cp 33\n        jr c,split           \n        sub 91-32\n        cp 6\n        jr c,split\n        sub 123-91\n        cp 5 \n        jr c,split\n\n\n;         inc hl\n;         dec b\n;         jr nz,checkNextChar\n;         jr split\n        ld (lastWordAddr),hl\nword\n\n        inc hl\n        dec b\n        jr nz,w2\n        ld a,(lastWordAddr)\n        ld l,a\n        ld a,(lastWordAddr+1)\n        ld h,a\n        jr aga\n        //----------------------twink\nw2\n        ld a,(hl)\n        or a\n        jr z,endText\n        sub 32\n;         or a\n;         jr z,userSymbol\n        cp 33\n        jr c,split           \n        sub 91-32\n        cp 6\n        jr c,split\n        sub 123-91\n        cp 5 \n        jr c,split\n\n        //----------------------\n\n        jr word\n\n\nendText\n        ld (ix+1),0\n        pop ix\n        ret\n\nsplit\n        ld (lastWordAddr),hl\n        inc hl\n        dec b\n        jr nz,checkNextChar\n        ld (lastLineAddr),hl\n        jr newLineProcess\nuserSymbol\n        or a\n        jr z,endText\n        inc hl\n        //      пользовательские символы такие как: цвет и т.д.\n        ret\n//------------------------------\n\nhLoop   \n        ld a,(hl)\n        cp \" \"\n        jr nz,countWordLength   //      если не пробел значит слово \n        inc hl\n        dec c\n        jp m,endLine    //      пробел выходит за передлы строки\n        jr hLoop\n\ncountWordLength         //      считаем длинну слова и отнимаем ее от оставшейся ширина\n        ld b,0\n        ld (lastLineAddr),hl // сохраняем адрес начала слова на случай если слово не войдет в строку\ncwlLoop\n        inc b\n        ld a,(hl)\n        inc hl\n        cp 0                    //      конец всего текста\n        jr nz,cwl2\n        //     установить точку выхода - старший байт конечного адреса текстовой линии в НОЛЬ\n        inc ix\n        ld (ix),a\n        pop ix\n        ret\ncwl2\n;         cp \".\"\n;         jr z,cwl3\n        cp \" \"                  //      конец слова\n        jr nz,cwlLoop\ncwl3\n        ld a,c\n        sub b\n        ld c,a\n        jp p,hLoop  //      слово вошло в строку - выходим, продолжаем\n        //              слово не вошло в строку:\n        //                      сохраняем адрес данного слова для новой строки\nendLine\n        ld a,(lastLineAddr)\n        ld (ix),a\n        ld a,(lastLineAddr+1)\n        inc ix\n        ld (ix),a\n        inc ix\n        //      восстанавливаем ширину строки\n        ld a,(textAreaWidth)\n        ld c,a\n        jr hLoop\n//-------------------\nstandard\n        ld e,(ix+data.textAddr)\n        ld d,(ix+data.textAddr+1)\n        ld hl,lines\ns2\n        ld (hl),e\n        inc hl\n        ld (hl),d\n        inc hl \n        ld b,(ix+data.width)\ns1\n        inc de\n        ld a,(de)\n        or a\n        jr z,ending\n        djnz s1\n        jr s2\nending\n        inc hl\n        ld (hl),0\n        ret\n//-------------------\n        display \"hyphenation: \", /A, hyphenation\n\tendmodule\n",
 			"file": "TALib/calculate.asm",
-			"file_size": 5793,
-			"file_write_time": 132308469147959822,
 			"settings":
 			{
-				"buffer_size": 5537,
-				"encoding": "Cyrillic (Windows 1251)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "TALib/text.asm",
-			"settings":
-			{
-				"buffer_size": 2433,
-				"encoding": "Cyrillic (Windows 1251)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "TALib/draw.asm",
-			"settings":
-			{
-				"buffer_size": 1128,
-				"encoding": "Cyrillic (Windows 1251)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "TALib/frame.asm",
-			"settings":
-			{
-				"buffer_size": 3044,
+				"buffer_size": 9829,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -267,7 +341,7 @@
 			"file": "TALib/struct.asm",
 			"settings":
 			{
-				"buffer_size": 1181,
+				"buffer_size": 5157,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -276,7 +350,34 @@
 			"file": "TALib/memory.asm",
 			"settings":
 			{
-				"buffer_size": 93,
+				"buffer_size": 200,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/draw.asm",
+			"settings":
+			{
+				"buffer_size": 1808,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/text.asm",
+			"settings":
+			{
+				"buffer_size": 2430,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/frame.asm",
+			"settings":
+			{
+				"buffer_size": 2964,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -347,6 +448,10 @@
 	],
 	"file_history":
 	[
+		"/C/ZX/Sublime/Data/Packages/z80asm/z80asm.sublime-build",
+		"/C/ZX/Sublime/Data/Packages/z80asm/z80asm.sublime-settings",
+		"/C/ZX/Sublime/Data/Packages/z80asm/run.bat",
+		"/C/ZX/Sublime/Data/Packages/z80asm/build.bat",
 		"/C/ZX/Projects/libs/TextArea/README.md",
 		"/C/ZX/Projects/libs/TextArea/TALib/keyboard.asm",
 		"/C/ZX/Projects/libs/TextArea/TALib/frame.asm",
@@ -368,14 +473,11 @@
 		"/C/ZX/Projects/YangaV3.0/logic.asm",
 		"/C/ZX/Projects/YangaV3.0/Yanga.asm",
 		"/C/ZX/Projects/YangaV3.0/mainMenu.asm",
-		"/C/ZX/Sublime/Data/Packages/z80asm/z80asm.sublime-settings",
-		"/C/ZX/Projects/YangaV3.0/scroll.asm",
-		"/C/ZX/Sublime/Data/Packages/z80asm/build.bat",
-		"/C/ZX/Sublime/Data/Packages/z80asm/run.bat"
+		"/C/ZX/Projects/YangaV3.0/scroll.asm"
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 29.0
 	},
 	"find_in_files":
 	{
@@ -389,6 +491,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"),",
+			"textAddr",
+			"BRIGHTNESS",
 			")\n"
 		],
 		"highlight": true,
@@ -407,7 +512,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -416,15 +521,102 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2285,
+						"buffer_size": 2578,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								927,
-								927
+								2577,
+								2577
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1380.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "TALib/calculate.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9829,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								651,
+								651
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"tab_size": 8,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "TALib/struct.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5157,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4997,
+								5003
+							]
+						],
+						"settings":
+						{
+							"spell_check": false,
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2940.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "TALib/memory.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								110,
+								73
 							]
 						],
 						"settings":
@@ -435,54 +627,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "TALib/calculate.asm",
+					"buffer": 4,
+					"file": "TALib/draw.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5537,
+						"buffer_size": 1808,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3087,
-								3087
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"tab_size": 8,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2124.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "TALib/text.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2433,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								199,
-								199
+								13,
+								13
 							]
 						],
 						"settings":
@@ -497,20 +659,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "TALib/draw.asm",
+					"buffer": 5,
+					"file": "TALib/text.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1128,
+						"buffer_size": 2430,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								110,
-								110
+								192,
+								192
 							]
 						],
 						"settings":
@@ -525,82 +687,26 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 6,
 					"file": "TALib/frame.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3044,
+						"buffer_size": 2964,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								95,
-								111
+								305,
+								305
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/z80asm/z80asm.tmLanguage",
 							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "TALib/struct.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1181,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								503,
-								508
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "TALib/memory.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 93,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								79,
-								79
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -628,8 +734,8 @@
 						"selection":
 						[
 							[
-								3801,
-								3801
+								3757,
+								3757
 							]
 						],
 						"settings":
@@ -637,7 +743,7 @@
 							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2124.0,
+						"translation.y": 5140.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 7,
@@ -648,7 +754,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 29.0
 	},
 	"input":
 	{
@@ -674,7 +780,7 @@
 		"cols":
 		[
 			0.0,
-			0.744693396226,
+			0.84867444095,
 			1.0
 		],
 		"rows":
@@ -700,7 +806,7 @@
 	"project": "ta.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 54.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -738,7 +844,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 224.0,
+	"side_bar_width": 192.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
