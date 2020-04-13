@@ -20,7 +20,7 @@ draw
 	inc l
 	ld (coordinates),hl
 
-	ld ix,calculate.lines
+	ld ix,textFormat.collect
 
 printNextLine
 	call calculate.scrAddrDE
@@ -36,7 +36,9 @@ printNextLine
 nextChar
 	ex af,af
 	ld a,(hl)
-	cp 32
+	or a
+	ret z
+	cp #20
 	jr nc,canDraw
 	inc hl
 	jr nextChar+1

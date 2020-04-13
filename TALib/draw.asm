@@ -80,6 +80,7 @@ screenAttributes
 	//	code
 	include "TALib/keyboard.asm"
 	include "TALib/calculate.asm"
+	include "TALib/text_formatting.asm"
         include "TALib/frame.asm"
         include "TALib/text.asm"
         include "TALib/sound.asm"
@@ -92,5 +93,3 @@ screenAttributes
         include "TALib/Sprites/topSprite.asm"
         include "TALib/Sprites/topRightSprite.asm"
         include "TALib/Sprites/rightSprite.asm"
-        //	data
-        include "TALib/memory.asm"

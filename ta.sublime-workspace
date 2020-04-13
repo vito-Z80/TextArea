@@ -4,28 +4,284 @@
 		"selected_items":
 		[
 			[
-				"spli",
-				"splitWord"
+				"che",
+				"checkChar"
+			],
+			[
+				"user",
+				"userSymbols"
+			],
+			[
+				"start",
+				"startCode"
+			],
+			[
+				"TEX",
+				"TEXT.END"
+			],
+			[
+				"TEXT",
+				"TEXT.INDENT"
+			],
+			[
+				"next",
+				"nextLine"
+			],
+			[
+				"proc",
+				"process"
+			],
+			[
+				"lin",
+				"lineAddr"
+			],
+			[
+				"wor",
+				"wordAddr"
+			],
+			[
+				"oth",
+				"otherUserSymbols"
+			],
+			[
+				"sy",
+				"symbols"
+			],
+			[
+				"cure",
+				"currentColor"
+			],
+			[
+				"text",
+				"textFormat"
+			],
+			[
+				"tex",
+				"textAddr"
+			],
+			[
+				"en",
+				"ends"
+			],
+			[
+				"get",
+				"getAttrAddr"
+			],
+			[
+				"attr",
+				"attributeAddr"
+			],
+			[
+				"endM",
+				"endmodule"
+			],
+			[
+				"SETDE",
+				"SET_DELAY"
+			],
+			[
+				"del",
+				"del2"
+			],
+			[
+				"PA",
+				"PAPER"
+			],
+			[
+				"IN",
+				"INK.WHITE"
+			],
+			[
+				"SETA",
+				"SET_AREA_COLOR"
+			],
+			[
+				"BEEP",
+				"BEEP_OFF"
+			],
+			[
+				"bee",
+				"beepTest"
+			],
+			[
+				"BE",
+				"BEEP_ON"
+			],
+			[
+				"TE",
+				"TEXT.INDENT"
+			],
+			[
+				"not",
+				"notDraw"
+			],
+			[
+				"drwa",
+				"draw.execute"
+			],
+			[
+				"retu",
+				"returnColor"
+			],
+			[
+				"ret",
+				"return"
+			],
+			[
+				"cur",
+				"currentColor"
+			],
+			[
+				"prev",
+				"previous"
+			],
+			[
+				"attre",
+				"attributesAddr"
+			],
+			[
+				"RE",
+				"RED"
+			],
+			[
+				"RET",
+				"RETURN_COLOR"
+			],
+			[
+				"at",
+				"attributeAddr"
+			],
+			[
+				"attri",
+				"attributesAddr"
+			],
+			[
+				"symb",
+				"symbolColor"
+			],
+			[
+				"SET",
+				"SET_AREA_COLOR"
+			],
+			[
+				"draw",
+				"draw.execute"
+			],
+			[
+				"PAPE",
+				"PAPER.BLACK"
+			],
+			[
+				"SET_",
+				"SET_AREA_COLOR"
+			],
+			[
+				"main",
+				"mainProcess"
+			],
+			[
+				"crea",
+				"createMissing"
+			],
+			[
+				"sta",
+				"standardFont"
+			],
+			[
+				"ex",
+				"execute"
+			],
+			[
+				"cal",
+				"call"
+			],
+			[
+				"as",
+				"asdf"
+			],
+			[
+				"last",
+				"lastLineAddr"
+			],
+			[
+				"las",
+				"lastLineAddr"
+			],
+			[
+				"be",
+				"beep"
+			],
+			[
+				"lette",
+				"letterPause"
+			],
+			[
+				"noP",
+				"noPause2"
+			],
+			[
+				"hyp",
+				"hyphenation"
+			],
+			[
+				"sou",
+				"soundPlay"
+			],
+			[
+				"end",
+				"endm"
+			],
+			[
+				"Sou",
+				"SoundFX_A_Init"
+			],
+			[
+				"endm",
+				"endmodule"
+			],
+			[
+				"nextLi",
+				"nextLine"
+			],
+			[
+				"letter",
+				"letterAddr"
+			],
+			[
+				"drw",
+				"drawHyphenation2"
+			],
+			[
+				"new",
+				"newLineWithOffsetX"
+			],
+			[
+				"endP",
+				"endProc"
+			],
+			[
+				"bre",
+				"break2"
+			],
+			[
+				"hy",
+				"hyphenation"
 			],
 			[
 				"line",
-				"lineCounter"
+				"lines"
+			],
+			[
+				"spli",
+				"splitWord"
 			],
 			[
 				"SET_SI",
 				"SET_AERA_SIZE"
 			],
 			[
-				"end",
-				"endString"
-			],
-			[
 				"li",
 				"lineCounter"
-			],
-			[
-				"lin",
-				"lineLength"
 			],
 			[
 				"of",
@@ -48,10 +304,6 @@
 				"afterCheck"
 			],
 			[
-				"las",
-				"lastWordAddr"
-			],
-			[
 				"memor",
 				"memory.dataAddr"
 			],
@@ -68,16 +320,8 @@
 				"indent2"
 			],
 			[
-				"TEX",
-				"TEXT.INDENT"
-			],
-			[
 				"SET_A",
 				"SET_AERA_SIZE"
-			],
-			[
-				"en",
-				"endm"
 			],
 			[
 				"st",
@@ -88,20 +332,8 @@
 				"address"
 			],
 			[
-				"IN",
-				"INK"
-			],
-			[
-				"SET",
-				"SET_FRAME_COLOR"
-			],
-			[
 				"col",
 				"color"
-			],
-			[
-				"attr",
-				"attributes"
 			],
 			[
 				"spr",
@@ -110,14 +342,6 @@
 			[
 				"ed",
 				"endmodule"
-			],
-			[
-				"tex",
-				"textAddr"
-			],
-			[
-				"last",
-				"lastLineAddr"
 			],
 			[
 				"restore",
@@ -136,10 +360,6 @@
 				"frameColor"
 			],
 			[
-				"sta",
-				"standard"
-			],
-			[
 				"data",
 				"data.height"
 			],
@@ -152,16 +372,8 @@
 				"startCode"
 			],
 			[
-				"start",
-				"startCode"
-			],
-			[
 				"check",
 				"checkNextChar"
-			],
-			[
-				"cal",
-				"calculate"
 			],
 			[
 				"textA",
@@ -192,10 +404,6 @@
 				"continueDraw"
 			],
 			[
-				"next",
-				"nextLetterDraw"
-			],
-			[
 				"let",
 				"letterAddr"
 			],
@@ -206,10 +414,6 @@
 			[
 				"h",
 				"hyphenation"
-			],
-			[
-				"not",
-				"notSpace"
 			],
 			[
 				"scree",
@@ -234,10 +438,6 @@
 			[
 				"no",
 				"noPause"
-			],
-			[
-				"draw",
-				"drawStyle"
 			],
 			[
 				"auto",
@@ -323,8 +523,17 @@
 			"file": "main.asm",
 			"settings":
 			{
-				"buffer_size": 2578,
+				"buffer_size": 3724,
 				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/text_formatting.asm",
+			"settings":
+			{
+				"buffer_size": 2698,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -332,7 +541,25 @@
 			"file": "TALib/calculate.asm",
 			"settings":
 			{
-				"buffer_size": 9829,
+				"buffer_size": 6638,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/draw.asm",
+			"settings":
+			{
+				"buffer_size": 1664,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TALib/text.asm",
+			"settings":
+			{
+				"buffer_size": 1508,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -341,8 +568,8 @@
 			"file": "TALib/struct.asm",
 			"settings":
 			{
-				"buffer_size": 5157,
-				"encoding": "Cyrillic (Windows 1251)",
+				"buffer_size": 5497,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -356,28 +583,10 @@
 			}
 		},
 		{
-			"file": "TALib/draw.asm",
-			"settings":
-			{
-				"buffer_size": 1808,
-				"encoding": "Cyrillic (Windows 1251)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "TALib/text.asm",
-			"settings":
-			{
-				"buffer_size": 2430,
-				"encoding": "Cyrillic (Windows 1251)",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "TALib/frame.asm",
 			"settings":
 			{
-				"buffer_size": 2964,
+				"buffer_size": 2961,
 				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
@@ -448,9 +657,17 @@
 	],
 	"file_history":
 	[
+		"/C/ZX/Sublime/Data/Packages/z80asm/snippets/---.sublime-snippet",
+		"/C/ZX/Sublime/Data/Packages/z80asm/snippets/interr.sublime-snippet",
+		"/C/ZX/Sublime/Data/Packages/z80asm/snippets/loadsec.sublime-snippet",
+		"/C/ZX/Sublime/Data/Packages/z80asm/snippets/pp.sublime-snippet",
+		"/C/ZX/Sublime/Data/Packages/z80asm/snippets/savesna.sublime-snippet",
+		"/C/ZX/Sublime/Data/Packages/z80asm/snippets/struct.sublime-snippet",
+		"/C/ZX/Sublime/Data/Packages/z80asm/snippets/m128.sublime-snippet",
+		"/C/ZX/Projects/libs/TextArea/TALib/sound.asm",
+		"/C/ZX/Sublime/Data/Packages/z80asm/run.bat",
 		"/C/ZX/Sublime/Data/Packages/z80asm/z80asm.sublime-build",
 		"/C/ZX/Sublime/Data/Packages/z80asm/z80asm.sublime-settings",
-		"/C/ZX/Sublime/Data/Packages/z80asm/run.bat",
 		"/C/ZX/Sublime/Data/Packages/z80asm/build.bat",
 		"/C/ZX/Projects/libs/TextArea/README.md",
 		"/C/ZX/Projects/libs/TextArea/TALib/keyboard.asm",
@@ -512,7 +729,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -521,15 +738,102 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2578,
+						"buffer_size": 3724,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2577,
-								2577
+								187,
+								187
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "TALib/text_formatting.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2698,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2425,
+								2425
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2760.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "TALib/calculate.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6638,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6262,
+								6262
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"tab_size": 8,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5257.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "TALib/draw.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1664,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1087,
+								1087
 							]
 						],
 						"settings":
@@ -540,70 +844,69 @@
 						"translation.y": 1380.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "TALib/calculate.asm",
+					"buffer": 4,
+					"file": "TALib/text.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9829,
+						"buffer_size": 1508,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								651,
-								651
+								996,
+								996
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage",
-							"tab_size": 8,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 8.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "TALib/struct.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5157,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4997,
-								5003
-							]
-						],
-						"settings":
-						{
-							"spell_check": false,
 							"syntax": "Packages/z80asm/z80asm.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2940.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
+					"file": "TALib/struct.asm",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5497,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								281,
+								281
+							]
+						],
+						"settings":
+						{
+							"spell_check": false,
+							"syntax": "Packages/z80asm/z80asm.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "TALib/memory.asm",
 					"semi_transient": false,
 					"settings":
@@ -627,80 +930,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "TALib/draw.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1808,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13,
-								13
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "TALib/text.asm",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2430,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								192,
-								192
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/z80asm/z80asm.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "TALib/frame.asm",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2964,
+						"buffer_size": 2961,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								305,
-								305
+								2217,
+								2217
 							]
 						],
 						"settings":
@@ -709,7 +956,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2508.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 6,
@@ -722,7 +969,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "/C/ZX/Sublime/Data/Packages/z80asm/README.md",
 					"semi_transient": false,
 					"settings":
@@ -746,7 +993,7 @@
 						"translation.y": 5140.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -758,7 +1005,7 @@
 	},
 	"input":
 	{
-		"height": 40.0
+		"height": 42.0
 	},
 	"layout":
 	{

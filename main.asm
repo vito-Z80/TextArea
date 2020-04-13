@@ -1,14 +1,22 @@
+; Author: Serdjuk
+; Assembly: sjasmplus
         device zxspectrum48
         org #6000
 startCode
 
         include "TALib/struct.asm"
+
+
 	call restoreScreen
 
-	ld ix,memory.dataAddr 		//	all values address
+	ld ix,textFormat.dataAddr 		//	all values address
 rr
 ; 	SET_AERA_SIZE 22,0
 
+; 	SET_TEXT_ADDRESS message
+; 	SET_DELAY 3
+	SET_POSITION 0,0
+	SET_AERA_SIZE 0,0
 	SET_TEXT_ADDRESS simpleExample
 	call draw.execute
 
@@ -16,7 +24,8 @@ rr
 	SET_TEXT_ADDRESS message
 	SET_FRAME_COLOR INK.PURPLE
 	SET_AREA_COLOR INK.BLUE | PAPER.YELLOW
-	SET_AERA_SIZE 15,10
+	SET_POSITION 0,0
+	SET_AERA_SIZE 0,0
 	call draw.execute
 
 
@@ -47,7 +56,7 @@ rr
 	SET_FRAME_COLOR INK.YELLOW
 	SET_AREA_COLOR INK.WHITE | PAPER.BLUE | BRIGHTNESS
 	SET_AERA_SIZE 20,0
-	BEEP_OFF
+; 	BEEP_OFF
 
 	jp rr
 
@@ -116,13 +125,15 @@ message
 	db TEXT.END	//	text must be ending at '0'
 simpleExample
 	db "Simple example."
-	db TEXT.INDENT,1
+	db TEXT.INDENT,2
 	db "LD (IX+data.textAddr),text address"
 	db TEXT.INDENT,1
 	db "CALL draw.execute"
 	db TEXT.END
 initExample
 	db "delay = 1;"
+	db TEXT.INDENT,3
+	db TEXT.INDENT,3
 	db TEXT.INDENT,3
 	db "beep ON;"
 	db TEXT.END
@@ -147,5 +158,5 @@ testScreen
         savetap "main.tap",startCode
 //-------------INFO-------------------------------------------------------------
         display "LIBRARY CODE SIZE: ", /A, endCode-libCode
-        display "end proc: ", /A, simpleExample
+        display "----: ", /A, textFormat.collect
         LABELSLIST "C:\ZX\Addons\ue\user.l" 	//	for labels in UE: "UE path/user.l"
