@@ -40,8 +40,9 @@ rr
 	SET_TEXT_ADDRESS initExample
 	SET_FRAME_COLOR INK.RED | BRIGHTNESS
 	SET_AREA_COLOR INK.YELLOW | PAPER.BLUE | BRIGHTNESS
-	SET_AERA_SIZE 20,10
-	SET_POSITION 5,2
+; 	SET_AERA_SIZE 20,10
+	SET_AERA_SIZE 0,0
+; 	SET_POSITION 2,2
 	SET_DELAY 1
 	call draw.execute
 
@@ -132,10 +133,18 @@ simpleExample
 	db TEXT.END
 initExample
 	db "delay = 1;"
-	db TEXT.INDENT,3
-	db TEXT.INDENT,3
-	db TEXT.INDENT,3
+	db TEXT.INDENT,5
 	db "beep ON;"
+	db TEXT.INDENT,5
+	db "a-z, A-Z"
+	db TEXT.INDENT,5
+	db "2345235 1251 234125 345 234232313d"
+	db TEXT.INDENT,5
+	db ":'!@#$%^&*()ESXe"
+	dup 8
+	db TEXT.INDENT,2
+	db "etc.....  "
+	edup
 	db TEXT.END
 colorExample
 	db "Color test:"
@@ -145,10 +154,11 @@ colorExample
 	db TEXT.RETURN_COLOR
 	db ",previous color."
 	db TEXT.END
-beepTest:
+beepTest
 	db "Beep test & delay = 3;"
-	db TEXT.INDENT,2
+	db TEXT.INDENT,3
 	db "beep, BEEP, beep, BEEP, beep, BEEP, beep, BEEP, beep, BEEP, beep......"
+; 	db "beep BEEP beep BEEP beep BEEP beep BEEP beep BEEP beep......"
 	db TEXT.END
 
 ; 	SET_SPRITE 23842,0,0,0,0

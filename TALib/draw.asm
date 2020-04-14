@@ -13,7 +13,6 @@ execute
 	ld a,(ix+data.areaColor)
 	call text.areaColor
 
-
 	push ix
 	call text.draw
 	pop ix

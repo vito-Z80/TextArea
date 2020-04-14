@@ -8,8 +8,7 @@ lineAddr:   dw 0
 wordAddr:   dw 0         
 ; line counter
 lineCount:  db 0
-; start attribute address for text area
-attrAddr:  dw #0000 
+
 currentColor:   db 0
 previousColor:  db 0
 	struct line
@@ -17,7 +16,8 @@ textAddr dw
 offsetX  db
 length	 db
 	ends
-; считаем только символы [#20-#7F]
+	; когда определен конец строки и встречаем офсет, похоже происходит
+	; еще раз переход строки
 run:
 	; clear data
 	ld hl,collect
@@ -25,11 +25,6 @@ run:
 	ld bc,run-collect-1
 	ld (hl),0
 	ldir
-	; save attr addr for text area
-	call calculate.getAttrAddr
-	inc l	; x++
-	inc h	; y++
-	ld (attrAddr),hl
 	; start text address save value
 	ld l,(ix+data.textAddr)
 	ld h,(ix+data.textAddr+1)
@@ -70,7 +65,11 @@ checkUserSymbols:
 	cp #20
 	jr nc,notUserSymbol
 	cp TEXT.INDENT
-	jr z,setOffset
+	jp z,setOffset
+	cp TEXT.COLOR
+	jr nz,oneInc
+	inc hl
+oneInc
 	inc hl
 	jr nextChar
 ;not user symbols
@@ -128,11 +127,10 @@ nextLine:
 	ld (ix+line.textAddr+1),h
 	ld (ix+line.offsetX),0
 	ld (ix+line.length),0
-	; clear offset & length
-	ld de,0
 	ld a,(lineCount)
 	inc a
 	ld (lineCount),a
+	ld de,0
 	ret
 setOffset:
 	inc hl
@@ -140,11 +138,18 @@ setOffset:
 	inc hl
 	push af
 	ld (wordAddr),hl
+	ld a,c
+	sub b
+	or a
+	jr z,newLineIsSet
 	call nextLine
+newLineIsSet:
 	pop af
 	ld (ix+line.offsetX),a
 	xor a
 	sub d
 	ld (ix+line.length),a
 	jp process
+; set colors to text area
+
 	endmodule

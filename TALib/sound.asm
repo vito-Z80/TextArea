@@ -60,14 +60,14 @@ SoundFX_A_V4:
 ; D = Duration of each step of the sound effect
 ;	FIX - enable the user to set values
 setSound:
-	ld a,25
-	ld b,49
+	ld a,19
+	ld b,193
 	ld c,2
 	ld d,1
 	call sound.SoundFX_A_Init
 	ret
 soundPlay
-	ld b,2
+	ld b,7
 step:
 	push bc
 	call sound.SoundFX_A_Main
