@@ -27,10 +27,6 @@ main:
 	call buildWithChooser
 	call selected
 	jr main
-
-	ld a,INK.YELLOW|PAPER.BLUE|BRIGHTNESS
-	ld bc,(INK.RED | PAPER.BLACK) *256+ (INK.BLUE | PAPER.BLACK)
-	call setColor
 //------------------------
 selected:
 	or a
@@ -113,7 +109,7 @@ font:
 	incbin "TALib/lib/littleFont.SpecCHR"
 	
 	savesna "C:\ZX\Addons\ue\qsave1.sna",#6000
-; 	savetap "main.tap",#6000
+	savetap "main.tap",#6000
 
 
 
